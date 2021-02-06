@@ -9,7 +9,7 @@ token = "537f748434597e390ed05a9d5038c8507117b687"
 auth = ("headers={'Authorization': " + token + "}")
 
 # Repositry lists file
-repolist = open("repolists.dat","r")
+repolist = open("repolists.txt","r")
 
 with open('repodata.csv', 'w', newline='') as file:
     writer = csv.writer(file, quoting=csv.QUOTE_NONNUMERIC, delimiter=';')
