@@ -35,3 +35,5 @@ Manage logging using fluentd to ship Nginx request logs to ElasticSearch and Kib
   - kubectl create -f nginx.yaml
 <img src="./two/k8s/nginx-k8s.png" height="200">
 2) compose (docker compose configuration for standalone)
+- docker-compose.yaml (setup standalone containers to get logs from nginx to elasticsearch using fluentd and accessed with kibana)
+<img src="./two/k8s/nginx-compose.png" height="200">
