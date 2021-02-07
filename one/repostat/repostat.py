@@ -1,17 +1,18 @@
-import datetime, requests, json, logging, csv
+import datetime, requests, csv
 from datetime import datetime
 
 #stamp = datetime.now()
 #print(stamp.strftime("%Y-%m-%d-%H%M%S"))
 
-# Development secret
-token = "537f748434597e390ed05a9d5038c8507117b687"
+# GitHub secret
+# https://github.com/settings/tokens
+token = ""
 auth = ("headers={'Authorization': " + token + "}")
 
 # Repositry lists file
-repolist = open("repolists.txt","r")
-
-with open('repodata.csv', 'w', newline='') as file:
+repolist = open("repolist.txt", "r")
+# Set csv header fields
+with open("repodata.csv", "w", newline='') as file:
     writer = csv.writer(file, quoting=csv.QUOTE_NONNUMERIC, delimiter=';')
     writer.writerow(["name","clone_url","commit_author", "commit_date"])
 file.close()
@@ -27,7 +28,12 @@ for line in repolist:
     # Commits repository informations
     commits_link = ('https://api.github.com/repos/' + orgs + '/' + str.rstrip(repo) + '/commits?per_page=1')
     # Query github API
-    basic_query = requests.get(basic_link, auth)
+    if token == "":
+        basic_query = requests.get(basic_link)
+        commits_query = requests.get(commits_link)
+    else:
+        basic_query = requests.get(basic_link, auth)
+        commits_query = requests.get(commits_link, auth)
     # If reposity found then proceed
     if basic_query.status_code == 200:
         # Getting repository informations
@@ -35,7 +41,6 @@ for line in repolist:
         # Get data
         basic_name = basic_queryjson["name"]
         basic_clone = basic_queryjson["clone_url"]
-        commits_query = requests.get(commits_link, auth)
         commits_queryjson = commits_query.json()
         commits_login = commits_queryjson[0]["author"]["login"]
         commits_author = commits_queryjson[0]["commit"]["author"]["name"]
@@ -43,7 +48,7 @@ for line in repolist:
         #commits_dateconvert = commits_date.strftime('%A %b %d, %Y at %H:%M GMT')
         # Save data
         row_list = [[basic_name, basic_clone, commits_author, commits_date] ]
-        with open('repodata.csv', 'a', newline='') as file:
+        with open("repodata.csv", 'a', newline='') as file:
             writer = csv.writer(file, quoting=csv.QUOTE_NONNUMERIC, delimiter=';')
             writer.writerows(row_list)
     # Show response from API when failed
