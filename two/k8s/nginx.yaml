@@ -29,6 +29,6 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx:1.16.1
+        image: bagusajah/tvlktht:website
         ports:
         - containerPort: 80
