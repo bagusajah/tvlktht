@@ -33,5 +33,5 @@ Manage logging using fluentd to ship Nginx request logs to ElasticSearch and Kib
 - Nginx
   Create Service and Deployment
   - kubectl create -f nginx.yaml
-  
+<img src="./two/nginx-k8s.png" height="200">
 2) compose (docker compose configuration for standalone)
