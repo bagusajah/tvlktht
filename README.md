@@ -1,3 +1,4 @@
+#Personal Use
 # tvlktht
 FIRST SOLUTION
 ==============================================
@@ -37,3 +38,5 @@ Manage logging using fluentd to ship Nginx request logs to ElasticSearch and Kib
 2) compose (docker compose configuration for standalone)
 - docker-compose.yaml (setup standalone containers to get logs from nginx to elasticsearch using fluentd and accessed with kibana)
 <img src="./two/compose/nginx-compose.png" height="200">
+
+**alt for avoid fluentd port expose, use in_syslog (add new volume for nginx.conf and change fluentd.com
